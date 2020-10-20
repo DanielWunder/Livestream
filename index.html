@@ -1,17 +1,86 @@
-<h1><a href="https://youtu.be/b71-ZrjslEk">Hier</a> geht es zum aktuellen Livestream</h1>
-<script>
-setTimeout(function(){
-	console.log("timeout")
-	var result = null;
-	var xmlhttp = new XMLHttpRequest();
-	xmlhttp.open("GET", "link.txt", false);
-	xmlhttp.send();
-	if (xmlhttp.status==200) {
-		result = xmlhttp.responseText;
-		console.log(result)
-	}else{
-		console.log("a")
+<html>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<head>
+		<title>Livestream | Gemeinde Delbrück</title>
+		<style>
+		body {
+		  background-color: lightsteelblue;
+		}
+		#link-box, #message-box {
+			position: fixed;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%);
+			padding: 10px;
+			font-size: 24px;
+			color: black;
+			font-family: sans-serif;
+			display: none;
+		}
+		#link-box {
+			position: fixed;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%);
+			padding: 10px;
+			font-size: 24px;
+			background: white;
+			text-decoration: none;
+			box-shadow: 2px 2px 5px grey;
+		}
+		#link-box:hover {
+			background-color: aliceblue;
+		}
+		</style>
+	</head>
+	
+	<body>
+		<div id="message-box">
+			Aktuell ist kein Livestream verfügbar
+		</div>
+		<a id="link-box">
+			Zum Livestream
+		</a>
+	</body>
+	
+	<script>
+	getLink = function(){
+		try {
+			var result = null;
+			var xmlhttp = new XMLHttpRequest();
+			xmlhttp.open("GET", "link.txt", false);
+			xmlhttp.send();
+			if (xmlhttp.status==200) {
+				result = xmlhttp.responseText;
+				return result
+			}else{
+				return null
+			}
+		}catch(Exception){
+			return null
+		}
+		
+	};
+	updateView = function(){
+		link = getLink();
+		if(link){
+			linkElement = document.querySelector("#link-box");
+			linkElement.setAttribute("href", link);
+			linkElement.style["display"] = "block";
+			messageElement = document.querySelector("#message-box");
+			messageElement.style["display"] = "none";
+		}else{
+			linkElement = document.querySelector("#link-box");
+			linkElement.setAttribute("href", "");
+			linkElement.style["display"] = "none";
+			messageElement = document.querySelector("#message-box");
+			messageElement.style["display"] = "block";
+		}
+		
 	}
-   //window.location.reload(1);
-}, 5000);
-</script>
+	updateView();
+	setInterval(function(){
+		updateView();
+	}, 10000);
+	</script>
+</html>
