@@ -58,6 +58,7 @@
 			var result = null;
 			var xmlhttp = new XMLHttpRequest();
 			xmlhttp.open("GET", "link.txt", false);
+			xmlhttp.setRequestHeader('Cache-Control', 'no-cache');
 			xmlhttp.send();
 			if (xmlhttp.status==200) {
 				result = xmlhttp.responseText;
