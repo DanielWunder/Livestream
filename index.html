@@ -31,6 +31,13 @@
 		#link-box:hover {
 			background-color: aliceblue;
 		}
+		#log {
+			bottom: 0;
+			right: 0;
+			position: fixed;
+			max-height: 300px;
+			overflow: auto;
+		}
 		</style>
 	</head>
 	
@@ -41,6 +48,8 @@
 		<a id="link-box">
 			Zum Livestream
 		</a>
+		<div id="log">
+		</div>
 	</body>
 	
 	<script>
@@ -63,6 +72,9 @@
 	};
 	updateView = function(){
 		link = getLink();
+		date = new Date();
+		logElement = document.querySelector("#log");
+		logElement.innerHTML = date.toISOString() + ": " + link + "<br>" + logElement.innerHTML;
 		if(link && link.trim() != ""){
 			linkElement = document.querySelector("#link-box");
 			linkElement.setAttribute("href", link.trim());
