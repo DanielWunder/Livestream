@@ -37,6 +37,7 @@
 			position: fixed;
 			max-height: 300px;
 			overflow: auto;
+			display: none;
 		}
 		</style>
 	</head>
@@ -48,11 +49,11 @@
 		<a id="link-box">
 			Zum Livestream
 		</a>
-		<div id="log">
-		</div>
+		<div id="log"></div>
 	</body>
 	
 	<script>
+	debug = false;
 	getLink = function(){
 		try {
 			var result = null;
@@ -76,6 +77,11 @@
 		date = new Date();
 		logElement = document.querySelector("#log");
 		logElement.innerHTML = date.toISOString() + ": " + link + "<br>" + logElement.innerHTML;
+		if(debug) {
+			logElement.style["display"] = "block";
+		}else {
+			logElement.style["display"] = "none";
+		}
 		if(link && link.trim() != ""){
 			linkElement = document.querySelector("#link-box");
 			linkElement.setAttribute("href", link.trim());
