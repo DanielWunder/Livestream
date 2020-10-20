@@ -63,9 +63,9 @@
 	};
 	updateView = function(){
 		link = getLink();
-		if(link){
+		if(link && link.trim() != ""){
 			linkElement = document.querySelector("#link-box");
-			linkElement.setAttribute("href", link);
+			linkElement.setAttribute("href", link.trim());
 			linkElement.style["display"] = "block";
 			messageElement = document.querySelector("#message-box");
 			messageElement.style["display"] = "none";
